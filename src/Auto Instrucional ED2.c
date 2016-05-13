@@ -26,10 +26,12 @@ TLista* insereSoldadoNoCirc(TLista*, char*);
 void imprimeSoldadosCirc(TLista*);
 int verificaCircVazio(TLista*);
 int verificaNumeroSoldados(TLista*);
+TLista* buscaSoldado(TLista*, int);
 
 int main(void){
 	//testando a funcao insere e imprime e verificaCircVazio
 	TLista* lista = inicializaListaSoldados();
+	TLista* soldadoEspecifico = inicializaListaSoldados();
 
 	int a = verificaCircVazio(lista);
 	int tamanhoLista;
@@ -57,6 +59,9 @@ int main(void){
 	//teste do calculo do tamanho da lista
 	tamanhoLista = verificaNumeroSoldados(lista);
 	printf("\nTemos %i soldados!", tamanhoLista);
+
+	soldadoEspecifico = buscaSoldado(lista, 3);
+	printf("\nsoldado especifico = %s", soldadoEspecifico->nomeSoldado);
 	return EXIT_SUCCESS;
 }
 
@@ -117,4 +122,26 @@ int verificaNumeroSoldados(TLista* lista){
 		}while(aux != lista);
 	}
 	return contador;
+}
+
+TLista* buscaSoldado(TLista* lista, int indice){
+	int ref = 0;
+	TLista* aux = lista;
+	if(lista != NULL && verificaNumeroSoldados(lista) >= indice){
+		do{
+			if(ref == indice){ //soldado encontrado
+				break;
+			}
+			ref++;
+			aux = aux->prox;
+		}while(aux != lista);
+		if(indice == 0){
+			return lista;
+		}
+		if(aux == lista){
+			return NULL;
+		}
+		return aux;
+	}
+	return lista;
 }
