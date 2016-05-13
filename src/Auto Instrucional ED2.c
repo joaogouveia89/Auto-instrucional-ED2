@@ -10,6 +10,7 @@
 
 #include <stdio.h>
 #include <stdlib.h>
+#include <string.h>
 #define TAMANHO_MAXIMO_NOME_SOLDADOS 20
 
 typedef struct lista TLista;
