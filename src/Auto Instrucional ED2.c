@@ -22,9 +22,17 @@ struct lista{
 //protótipos
 TLista* inicializaListaSoldados();
 TLista* insereSoldadoNoCirc(TLista*, char*);
+void imprimeSoldadosCirc(TLista*);
 
-int main(void) {
-	puts("Hello world"); /* prints Hello world */
+int main(void){
+	//testando a funcao insere e imprime
+	TLista* lista = inicializaListaSoldados();
+
+	lista = insereSoldadoNoCirc(lista, "Joao");
+	lista = insereSoldadoNoCirc(lista, "Andressa");
+	lista = insereSoldadoNoCirc(lista, "Xulambs");
+
+	imprimeSoldadosCirc(lista);
 	return EXIT_SUCCESS;
 }
 
@@ -49,4 +57,21 @@ TLista* insereSoldadoNoCirc(TLista* lista, char dado[TAMANHO_MAXIMO_NOME_SOLDADO
 		aux->prox = aux2;
 	}
 	return lista;
+}
+
+void imprimeSoldadosCirc(TLista* lista){
+	TLista* aux;
+	if(lista == NULL){
+		printf("\nLista vazia!\n");
+	}else{
+		aux = lista;
+		do{
+			if(aux->prox != lista){
+				printf("%s - ",aux->nomeSoldado);
+			}else{
+				printf("%s",aux->nomeSoldado);
+			}
+			aux = aux->prox;
+		}while(aux != lista);
+	}
 }
