@@ -60,7 +60,7 @@ int main(void){
 	tamanhoLista = verificaNumeroSoldados(lista);
 	printf("\nTemos %i soldados!", tamanhoLista);
 
-	soldadoEspecifico = buscaSoldado(lista, 3);
+	soldadoEspecifico = buscaSoldado(lista, 0);
 	printf("\nsoldado especifico = %s", soldadoEspecifico->nomeSoldado);
 	return EXIT_SUCCESS;
 }
@@ -127,21 +127,15 @@ int verificaNumeroSoldados(TLista* lista){
 TLista* buscaSoldado(TLista* lista, int indice){
 	int ref = 0;
 	TLista* aux = lista;
-	if(lista != NULL && verificaNumeroSoldados(lista) >= indice){
+	if(lista != NULL){
 		do{
 			if(ref == indice){ //soldado encontrado
-				break;
+				return aux;
 			}
 			ref++;
 			aux = aux->prox;
 		}while(aux != lista);
-		if(indice == 0){
-			return lista;
-		}
-		if(aux == lista){
-			return NULL;
-		}
-		return aux;
+		return NULL;
 	}
 	return lista;
 }
