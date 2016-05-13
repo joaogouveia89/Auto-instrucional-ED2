@@ -25,12 +25,14 @@ TLista* inicializaListaSoldados();
 TLista* insereSoldadoNoCirc(TLista*, char*);
 void imprimeSoldadosCirc(TLista*);
 int verificaCircVazio(TLista*);
+int verificaNumeroSoldados(TLista*);
 
 int main(void){
 	//testando a funcao insere e imprime e verificaCircVazio
 	TLista* lista = inicializaListaSoldados();
 
 	int a = verificaCircVazio(lista);
+	int tamanhoLista;
 
 	if(a == 1){
 		printf("Lista vazia!\n");
@@ -51,6 +53,10 @@ int main(void){
 	}else{
 		printf("\nLista nao vazia!\n");
 	}
+
+	//teste do calculo do tamanho da lista
+	tamanhoLista = verificaNumeroSoldados(lista);
+	printf("\nTemos %i soldados!", tamanhoLista);
 	return EXIT_SUCCESS;
 }
 
@@ -99,4 +105,16 @@ int verificaCircVazio(TLista* lista){
 		return 1;
 	}
 	return 0;
+}
+
+int verificaNumeroSoldados(TLista* lista){
+	TLista* aux = lista;
+	int contador = 0;
+	if(lista != NULL){
+		do{
+			contador++;
+			aux = aux->prox;
+		}while(aux != lista);
+	}
+	return contador;
 }
