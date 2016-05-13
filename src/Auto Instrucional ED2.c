@@ -30,6 +30,7 @@ int verificaCircVazio(TLista*);
 int verificaNumeroSoldados(TLista*);
 TLista* buscaSoldado(TLista*, int);
 TLista* sorteiaSoldado(TLista*);
+TLista* lerNomeSoldados(TLista*, char*);
 
 int main(void) {
 	//testando a funcao insere e imprime e verificaCircVazio
@@ -45,9 +46,7 @@ int main(void) {
 		printf("Lista nao vazia!\n");
 	}
 
-	lista = insereSoldadoNoCirc(lista, "Joao");
-	lista = insereSoldadoNoCirc(lista, "Andressa");
-	lista = insereSoldadoNoCirc(lista, "Xulambs");
+	lista = lerNomeSoldados(lista, "nomes.txt");
 
 	imprimeSoldadosCirc(lista);
 
@@ -165,3 +164,21 @@ TLista* sorteiaSoldado(TLista* lista) {
 	}
 	return NULL;
 }
+
+TLista* lerNomeSoldados(TLista* lista, char* path){
+	char* nome;
+	FILE *file;
+	file = fopen(path, "rt");
+	if (file) {
+		while (fgets(nome,150, file)) {
+			lista = insereSoldadoNoCirc(lista, nome);
+		}
+		fclose(file);
+	}else{
+		printf("\nAquivo nomes.txt nao encontrado\n");
+	}
+
+	return lista;
+}
+
+
