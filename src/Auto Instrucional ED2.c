@@ -23,16 +23,33 @@ struct lista{
 TLista* inicializaListaSoldados();
 TLista* insereSoldadoNoCirc(TLista*, char*);
 void imprimeSoldadosCirc(TLista*);
+int verificaCircVazio(TLista*);
 
 int main(void){
-	//testando a funcao insere e imprime
+	//testando a funcao insere e imprime e verificaCircVazio
 	TLista* lista = inicializaListaSoldados();
+
+	int a = verificaCircVazio(lista);
+
+	if(a == 1){
+		printf("Lista vazia!\n");
+	}else{
+		printf("Lista nao vazia!\n");
+	}
 
 	lista = insereSoldadoNoCirc(lista, "Joao");
 	lista = insereSoldadoNoCirc(lista, "Andressa");
 	lista = insereSoldadoNoCirc(lista, "Xulambs");
 
 	imprimeSoldadosCirc(lista);
+
+	a = verificaCircVazio(lista);
+
+	if(a == 1){
+		printf("\nLista vazia!\n");
+	}else{
+		printf("\nLista nao vazia!\n");
+	}
 	return EXIT_SUCCESS;
 }
 
@@ -74,4 +91,11 @@ void imprimeSoldadosCirc(TLista* lista){
 			aux = aux->prox;
 		}while(aux != lista);
 	}
+}
+
+int verificaCircVazio(TLista* lista){
+	if(lista == NULL){
+		return 1;
+	}
+	return 0;
 }
