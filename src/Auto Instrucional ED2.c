@@ -14,6 +14,7 @@
 #include <math.h>
 #include <string.h>
 #define TAMANHO_MAXIMO_NOME_SOLDADOS 20
+#define NUMERO_DE_SOLDADOS 35
 
 typedef struct lista TLista;
 
@@ -30,7 +31,7 @@ int verificaCircVazio(TLista*);
 int verificaNumeroSoldados(TLista*);
 TLista* buscaSoldado(TLista*, int);
 TLista* sorteiaSoldado(TLista*);
-TLista* lerNomeSoldados(TLista*, char*);
+TLista* lerNomeSoldados(TLista*, char*, int);
 
 int main(void) {
 	//testando a funcao insere e imprime e verificaCircVazio
@@ -46,7 +47,7 @@ int main(void) {
 		printf("Lista nao vazia!\n");
 	}
 
-	lista = lerNomeSoldados(lista, "nomes.txt");
+	lista = lerNomeSoldados(lista, "nomes.txt", NUMERO_DE_SOLDADOS);
 
 	imprimeSoldadosCirc(lista);
 
@@ -165,13 +166,16 @@ TLista* sorteiaSoldado(TLista* lista) {
 	return NULL;
 }
 
-TLista* lerNomeSoldados(TLista* lista, char* path){
+TLista* lerNomeSoldados(TLista* lista, char* path, int numSoldados){
 	char* nome;
+	int ref = 0;
 	FILE *file;
 	file = fopen(path, "rt");
 	if (file) {
-		while (fgets(nome,150, file)) {
+		while (fgets(nome,150, file) && ref < numSoldados) {
+			nome[strlen(nome)-1] = '\0';
 			lista = insereSoldadoNoCirc(lista, nome);
+			ref++;
 		}
 		fclose(file);
 	}else{
