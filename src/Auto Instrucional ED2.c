@@ -32,7 +32,7 @@ TLista* buscaSoldado(TLista*, char*);
 TLista* sorteiaSoldado(TLista*);
 TLista* lerNomeSoldados(TLista*, char*);
 TLista* excluiSoldadoDoCirc(TLista*, char*);
-
+int sorteiaN(void);
 
 int main(void) {
 	//testando a funcao insere e imprime e verificaCircVazio
@@ -181,4 +181,9 @@ TLista* excluiSoldadoDoCirc(TLista* lista, char* nomeMorto){
 	aux->prox = aux->prox->prox;
 	free(soldadoExcluido);
 	return lista;
+}
+
+int sorteiaN(void){ // sendo n um numero entre 1 e 10
+	srand((unsigned) time(NULL));
+	return rand()%10;
 }
