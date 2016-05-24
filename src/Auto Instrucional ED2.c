@@ -31,22 +31,24 @@ int verificaNumeroSoldados(TLista*);
 TLista* buscaSoldado(TLista*, char*);
 TLista* sorteiaSoldado(TLista*);
 TLista* lerNomeSoldados(TLista*, char*);
-
+TLista* excluiSoldadoDoCirc(TLista*, char*);
 
 
 int main(void) {
 	//testando a funcao insere e imprime e verificaCircVazio
 	TLista* lista = inicializaListaSoldados();
-	TLista* soldado = NULL;
 
 	setbuf(stdout, NULL);
 
 	lista = lerNomeSoldados(lista, "nomes.txt");
 
-	soldado = buscaSoldado(lista, "Sueli");
 	imprimeSoldadosCirc(lista);
 
-	printf("\ntesting hotfix with name %s", soldado->nomeSoldado);
+	lista = excluiSoldadoDoCirc(lista, "Andressa");
+
+	printf("\n\n");
+
+	imprimeSoldadosCirc(lista);
 
 	return EXIT_SUCCESS;
 }
@@ -83,6 +85,9 @@ void imprimeSoldadosCirc(TLista* lista) {
 		aux = lista;
 		do {
 			if (aux->prox != lista) {
+				TLista* excluiSoldadoDoCirc(TLista*, char*);
+
+
 				printf("%s - ", aux->nomeSoldado);
 			} else {
 				printf("%s", aux->nomeSoldado);
@@ -159,4 +164,21 @@ TLista* lerNomeSoldados(TLista* lista, char* path){
 	return lista;
 }
 
-
+TLista* excluiSoldadoDoCirc(TLista* lista, char* nomeMorto){
+	/* TLista* soldadoMorto = buscaSoldado(lista, nomeMorto);
+	 *  Se eu usar a funcao buscaSoldado vou ter de fazer duas varreduras na
+	 *  lista, sendo uma feita na funcao buscaSoldado e a outra nessa funcao
+	 *  para buscar o soldado anterior ao buscado, entao resolvi fazer com uma
+	 *  busca so para um menor esforco computacional, ja que dessa forma
+	 *  consigo as duas informacoes
+	 */
+	TLista* aux = lista;
+	TLista* soldadoExcluido = NULL;
+	do{
+		aux = aux->prox;
+	}while(strcmp(aux->prox->nomeSoldado, nomeMorto) != 0);
+	soldadoExcluido = aux->prox;
+	aux->prox = aux->prox->prox;
+	free(soldadoExcluido);
+	return lista;
+}
