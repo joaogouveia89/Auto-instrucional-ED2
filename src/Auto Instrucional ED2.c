@@ -26,12 +26,14 @@ TLista* insereSoldadoNoCirc(TLista*, char*);
 void imprimeSoldadosCirc(TLista*);
 int verificaCircVazio(TLista*);
 int verificaNumeroSoldados(TLista*);
-TLista* buscaSoldado(TLista*, int);
+TLista* buscaSoldado(TLista*, char*);
 
 int main(void){
 	//testando a funcao insere e imprime e verificaCircVazio
 	TLista* lista = inicializaListaSoldados();
 	TLista* soldadoEspecifico = inicializaListaSoldados();
+
+	setbuf(stdout, NULL);
 
 	int a = verificaCircVazio(lista);
 	int tamanhoLista;
@@ -45,6 +47,7 @@ int main(void){
 	lista = insereSoldadoNoCirc(lista, "Joao");
 	lista = insereSoldadoNoCirc(lista, "Andressa");
 	lista = insereSoldadoNoCirc(lista, "Xulambs");
+	lista = insereSoldadoNoCirc(lista, "Xurango");
 
 	imprimeSoldadosCirc(lista);
 
@@ -60,7 +63,7 @@ int main(void){
 	tamanhoLista = verificaNumeroSoldados(lista);
 	printf("\nTemos %i soldados!", tamanhoLista);
 
-	soldadoEspecifico = buscaSoldado(lista, 0);
+	soldadoEspecifico = buscaSoldado(lista, "Joao");
 	printf("\nsoldado especifico = %s", soldadoEspecifico->nomeSoldado);
 	return EXIT_SUCCESS;
 }
@@ -124,15 +127,14 @@ int verificaNumeroSoldados(TLista* lista){
 	return contador;
 }
 
-TLista* buscaSoldado(TLista* lista, int indice){
+TLista* buscaSoldado(TLista* lista, char* busca){
 	int ref = 0;
 	TLista* aux = lista;
 	if(lista != NULL){
 		do{
-			if(ref == indice){ //soldado encontrado
+			if(strcmp(aux->nomeSoldado, busca) == 0){
 				return aux;
 			}
-			ref++;
 			aux = aux->prox;
 		}while(aux != lista);
 		return NULL;
