@@ -32,23 +32,23 @@ TLista* buscaSoldado(TLista*, char*); // busca um soldado especifico
 TLista* sorteiaSoldado(TLista*); // sorteia um soldado aleatorio
 TLista* lerNomeSoldados(TLista*, char*); // le nomes de soldados inseridos num arquivo de texto que fica na raiz do projeto
 TLista* excluiSoldadoDoCirc(TLista*, char*); // exclui um soldado da lista
-int sorteiaN(void);
+int sorteiaN(void); // sorteia um N, que por sua vez discrimina de quanto sera o numero de saltos do algoritimo
+void executaJosephus(TLista*, TLista*, int);
 
 int main(void) {
 	//testando a funcao insere e imprime e verificaCircVazio
-	TLista* lista = inicializaListaSoldados();
+	TLista* listaSoldados = inicializaListaSoldados();
+	TLista* soldadoSorteado = inicializaListaSoldados();
+	int n = sorteiaN();
 
 	setbuf(stdout, NULL);
 
-	lista = lerNomeSoldados(lista, "nomes.txt");
+	// pre execucao do algoritimo, pegando os dados
+	listaSoldados = lerNomeSoldados(listaSoldados, "nomes.txt");
+	soldadoSorteado = sorteiaSoldado(listaSoldados);
 
-	imprimeSoldadosCirc(lista);
-
-	lista = excluiSoldadoDoCirc(lista, "Andressa");
-
-	printf("\n\n");
-
-	imprimeSoldadosCirc(lista);
+	//execucao do algoritimo
+	executaJosephus(listaSoldados, soldadoSorteado, n);
 
 	return EXIT_SUCCESS;
 }
@@ -133,6 +133,8 @@ TLista* buscaSoldado(TLista* lista, char* busca){
 TLista* sorteiaSoldado(TLista* lista) {
 	int tamanhoLista = verificaNumeroSoldados(lista);
 	int indiceSoldadoSorteado;
+	int aux = 0;
+	TLista* soldadoSorteado = lista;
 
 	srand((unsigned) time(NULL));
 
@@ -142,7 +144,11 @@ TLista* sorteiaSoldado(TLista* lista) {
 					% (int) pow(10, ((int) log10(tamanhoLista)) + 1);
 		} while (indiceSoldadoSorteado >= tamanhoLista);
 
-		return buscaSoldado(lista, indiceSoldadoSorteado);
+		do{
+			soldadoSorteado = soldadoSorteado->prox;
+			aux++;
+		}while(aux != indiceSoldadoSorteado);
+		return soldadoSorteado;
 	}
 	return NULL;
 }
@@ -186,4 +192,27 @@ TLista* excluiSoldadoDoCirc(TLista* lista, char* nomeMorto){
 int sorteiaN(void){ // sendo n um numero entre 1 e 10
 	srand((unsigned) time(NULL));
 	return rand()%10;
+}
+
+void executaJosephus(TLista* listaSoldados, TLista* soldadoSorteado, int n){
+	int iteracao = 0;
+	int aux = 0;
+	TLista* soldadoAtual = soldadoSorteado;
+	printf("Execucao do Algoritimo");
+	printf("\n=================================\n");
+	printf("\nDados recebidos:\n");
+	printf("Lista de soldados: ");
+	imprimeSoldadosCirc(listaSoldados);
+	printf("\nSoldado Sorteado = %s", soldadoSorteado->nomeSoldado);
+	printf("\nN: %i", n);
+	printf("\n=================================\n");
+	do{
+		iteracao++;
+		printf("iteracao %i: \n", iteracao);
+		do{
+			soldadoAtual = soldadoAtual->prox;
+			aux++;
+		}while(aux < n);
+		soldadoAtual = excluiSoldadoDoCirc(listaSoldados, soldadoAtual->nomeSoldado);
+	}while(verificaCircVazio(listaSoldados) == 0);
 }
