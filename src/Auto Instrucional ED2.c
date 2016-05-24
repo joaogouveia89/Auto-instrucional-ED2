@@ -28,21 +28,25 @@ TLista* insereSoldadoNoCirc(TLista*, char*);
 void imprimeSoldadosCirc(TLista*);
 int verificaCircVazio(TLista*);
 int verificaNumeroSoldados(TLista*);
-TLista* buscaSoldado(TLista*, int);
+TLista* buscaSoldado(TLista*, char*);
 TLista* sorteiaSoldado(TLista*);
 TLista* lerNomeSoldados(TLista*, char*);
+
+
 
 int main(void) {
 	//testando a funcao insere e imprime e verificaCircVazio
 	TLista* lista = inicializaListaSoldados();
+	TLista* soldado = NULL;
 
 	setbuf(stdout, NULL);
 
 	lista = lerNomeSoldados(lista, "nomes.txt");
 
+	soldado = buscaSoldado(lista, "Sueli");
 	imprimeSoldadosCirc(lista);
 
-	printf("testing hotfix");
+	printf("\ntesting hotfix with name %s", soldado->nomeSoldado);
 
 	return EXIT_SUCCESS;
 }
@@ -107,15 +111,13 @@ int verificaNumeroSoldados(TLista* lista) {
 	return contador;
 }
 
-TLista* buscaSoldado(TLista* lista, int indice) {
-	int ref = 0;
+TLista* buscaSoldado(TLista* lista, char* busca){
 	TLista* aux = lista;
-	if (lista != NULL) {
-		do {
-			if (ref == indice) { //soldado encontrado
+	if(lista != NULL){
+		do{
+			if(strcmp(aux->nomeSoldado, busca) == 0){
 				return aux;
 			}
-			ref++;
 			aux = aux->prox;
 		} while (aux != lista);
 		return NULL;
