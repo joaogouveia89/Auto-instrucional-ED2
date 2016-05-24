@@ -35,39 +35,14 @@ TLista* lerNomeSoldados(TLista*, char*);
 int main(void) {
 	//testando a funcao insere e imprime e verificaCircVazio
 	TLista* lista = inicializaListaSoldados();
-	TLista* soldadoEspecifico = inicializaListaSoldados();
 
-	int a = verificaCircVazio(lista);
-	int tamanhoLista;
-
-	if (a == 1) {
-		printf("Lista vazia!\n");
-	} else {
-		printf("Lista nao vazia!\n");
-	}
+	setbuf(stdout, NULL);
 
 	lista = lerNomeSoldados(lista, "nomes.txt");
 
 	imprimeSoldadosCirc(lista);
 
-	a = verificaCircVazio(lista);
-
-	if (a == 1) {
-		printf("\nLista vazia!\n");
-	} else {
-		printf("\nLista nao vazia!\n");
-	}
-
-	//teste do calculo do tamanho da lista
-	tamanhoLista = verificaNumeroSoldados(lista);
-	printf("\nTemos %i soldados!", tamanhoLista);
-
-	soldadoEspecifico = buscaSoldado(lista, 0);
-	printf("\nsoldado especifico = %s", soldadoEspecifico->nomeSoldado);
-
-	soldadoEspecifico = sorteiaSoldado(lista);
-
-	printf("\nsoldado sorteado = %s", soldadoEspecifico->nomeSoldado);
+	printf("testing hotfix");
 
 	return EXIT_SUCCESS;
 }
