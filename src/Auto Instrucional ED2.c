@@ -146,6 +146,7 @@ TLista* lerNomeSoldados(TLista* lista, char* path){
 	file = fopen(path, "rt");
 	if (file) {
 		while (fgets(nome,150, file)) {
+			nome[strlen(nome)-1] = '\0';
 			lista = insereSoldadoNoCirc(lista, nome);
 		}
 		fclose(file);
