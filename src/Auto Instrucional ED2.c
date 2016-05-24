@@ -1,10 +1,10 @@
 /*
  ============================================================================
  Name        : Auto.c
- Author      : João Lucas Veloso Gouveia
+ Authors     : João Lucas Veloso Gouveia, Vitor Yomassa e Frederico Perpetuo
  Version     :
  Copyright   : Academic work for FUMEC
- Description : Hello World in C, Ansi-style
+ Description : Academic work for FUMEC(Josephus problem) in C, Ansi-style
  ============================================================================
  */
 
