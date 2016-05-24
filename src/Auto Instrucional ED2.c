@@ -23,15 +23,15 @@ struct lista {
 };
 
 //protótipos
-TLista* inicializaListaSoldados();
-TLista* insereSoldadoNoCirc(TLista*, char*);
-void imprimeSoldadosCirc(TLista*);
-int verificaCircVazio(TLista*);
-int verificaNumeroSoldados(TLista*);
-TLista* buscaSoldado(TLista*, char*);
-TLista* sorteiaSoldado(TLista*);
-TLista* lerNomeSoldados(TLista*, char*);
-TLista* excluiSoldadoDoCirc(TLista*, char*);
+TLista* inicializaListaSoldados(); // inicializa a lista para que a mesma nao seja um ponteiro apontando pro nada
+TLista* insereSoldadoNoCirc(TLista*, char*); //insere um soldado em uma lista pre criada
+void imprimeSoldadosCirc(TLista*); // imprime a lista de soldados no console
+int verificaCircVazio(TLista*); // verifica se a lista de soldados esta vazia
+int verificaNumeroSoldados(TLista*); // verifica a quantidade de soldados na lista
+TLista* buscaSoldado(TLista*, char*); // busca um soldado especifico
+TLista* sorteiaSoldado(TLista*); // sorteia um soldado aleatorio
+TLista* lerNomeSoldados(TLista*, char*); // le nomes de soldados inseridos num arquivo de texto que fica na raiz do projeto
+TLista* excluiSoldadoDoCirc(TLista*, char*); // exclui um soldado da lista
 int sorteiaN(void);
 
 int main(void) {
