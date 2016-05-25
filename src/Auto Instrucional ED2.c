@@ -197,6 +197,7 @@ int sorteiaN(void){ // sendo n um numero entre 1 e 10
 void executaJosephus(TLista* listaSoldados, TLista* soldadoSorteado, int n){
 	int iteracao = 0;
 	int aux = 0;
+	TLista* aux2 = NULL;
 	TLista* soldadoAtual = soldadoSorteado;
 	printf("Execucao do Algoritimo");
 	printf("\n=================================\n");
@@ -213,6 +214,9 @@ void executaJosephus(TLista* listaSoldados, TLista* soldadoSorteado, int n){
 			soldadoAtual = soldadoAtual->prox;
 			aux++;
 		}while(aux < n);
+		aux2 = soldadoAtual->prox;
+		printf("\nSoldado excluido: %s\n", soldadoAtual->nomeSoldado);
 		soldadoAtual = excluiSoldadoDoCirc(listaSoldados, soldadoAtual->nomeSoldado);
+		soldadoAtual = aux2;
 	}while(verificaCircVazio(listaSoldados) == 0);
 }
