@@ -45,8 +45,8 @@ int main(void) {
 
 	// pre execucao do algoritimo, pegando os dados
 	listaSoldados = lerNomeSoldados(listaSoldados, "nomes.txt");
-	soldadoSorteado = sorteiaSoldado(listaSoldados);
 
+	soldadoSorteado = sorteiaSoldado(listaSoldados);
 	//execucao do algoritimo
 	executaJosephus(listaSoldados, soldadoSorteado, n);
 
@@ -185,20 +185,29 @@ TLista* excluiSoldadoDoCirc(TLista* lista, char* nomeMorto){
 	}while(strcmp(aux->prox->nomeSoldado, nomeMorto) != 0);
 	soldadoExcluido = aux->prox;
 	aux->prox = aux->prox->prox;
+	if(soldadoExcluido == lista){
+		lista = aux;
+	}
 	free(soldadoExcluido);
 	return lista;
 }
 
-int sorteiaN(void){ // sendo n um numero entre 1 e 10
+int sorteiaN(void){ // sendo n um numero entre 2 e 10
 	srand((unsigned) time(NULL));
-	return rand()%10;
+	int n;
+	do{
+		n = rand()%10;
+	}while(n < 2);
+	return n;
 }
 
 void executaJosephus(TLista* listaSoldados, TLista* soldadoSorteado, int n){
 	int iteracao = 0;
-	int aux = 0;
+	int aux = 1;
 	TLista* aux2 = NULL;
 	TLista* soldadoAtual = soldadoSorteado;
+	TLista* sobrevivente = inicializaListaSoldados();
+
 	printf("Execucao do Algoritimo");
 	printf("\n=================================\n");
 	printf("\nDados recebidos:\n");
@@ -207,16 +216,22 @@ void executaJosephus(TLista* listaSoldados, TLista* soldadoSorteado, int n){
 	printf("\nSoldado Sorteado = %s", soldadoSorteado->nomeSoldado);
 	printf("\nN: %i", n);
 	printf("\n=================================\n");
-	do{
+	while(verificaNumeroSoldados(listaSoldados) != 1){
 		iteracao++;
 		printf("iteracao %i: \n", iteracao);
-		do{
+		while(aux < n){
 			soldadoAtual = soldadoAtual->prox;
 			aux++;
-		}while(aux < n);
+		}
+		aux = 1;
 		aux2 = soldadoAtual->prox;
 		printf("\nSoldado excluido: %s\n", soldadoAtual->nomeSoldado);
+		if(listaSoldados == soldadoAtual){
+			listaSoldados = listaSoldados->prox;
+		}
 		soldadoAtual = excluiSoldadoDoCirc(listaSoldados, soldadoAtual->nomeSoldado);
 		soldadoAtual = aux2;
-	}while(verificaCircVazio(listaSoldados) == 0);
+		printf("\nnum soldados = %i\n", verificaNumeroSoldados(listaSoldados));
+	}
+	printf("\nsoldado sobrevivente: %s", listaSoldados->nomeSoldado);
 }
